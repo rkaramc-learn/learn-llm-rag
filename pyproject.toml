@@ -1,0 +1,17 @@
+[project]
+name = "learn-llm-rag"
+version = "0.1.0"
+description = "Learn to implement LLM and RAG application"
+readme = "README.md"
+authors = [
+    { name = "Rajeev Karamcheti", email = "rkaramc@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+rag = "learn_llm_rag:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

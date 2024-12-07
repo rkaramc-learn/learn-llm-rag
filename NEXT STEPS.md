@@ -63,6 +63,13 @@ Track git tag [step_1.1]
 
 To make a reusable LLM wrapper, we will refactor the code in `__init__.py:callSimpleLLM()`. Extract the configuration code into a reusable function in a new file `simple_llm.py`.
 
+### Implement Logging
+
+Track git tag [step_1.2]
+
+Add logging to the files `__init__.py` and `simple_llm.py`. We will be using the built-in `logging` module in Python.
+
+Logging will help us debug the code and track usage. However, to be useful, logging will need to be at the appropriate level. For the purposes of this tutorial, we will log at the `INFO` level. Any error messages will be logged at the `ERROR` level. Common logging points are at the start and end of a function, and at the start and end of a loop or an important function call to external modules.
 
 # Version 2 -- Simple RAG
 

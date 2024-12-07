@@ -1,4 +1,4 @@
-from langchain_ollama import OllamaLLM
+from learn_llm_rag.simple_llm import SimpleLLM
 
 
 def callSimpleLLM():
@@ -7,14 +7,10 @@ def callSimpleLLM():
     print(f"Q: {question}")
 
     # Initialize LLM with remote URL and available model
-    llm = OllamaLLM(
-        base_url="http://quark02.saury-gar.ts.net:11434",
-        model="llama3.2:latest",
-        format="json",
-    )
+    llm_query = SimpleLLM()
 
     # Query LLM
-    llm_response = llm.invoke(question)
+    llm_response = llm_query(question)
     print(f"A: {llm_response.strip()}")
 
 

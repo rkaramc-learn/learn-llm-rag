@@ -28,23 +28,44 @@ Build it!
 
 # Version 1 -- Simple LLM
 
-- `__init__.py:callSimpleLLM()` method
+Track git branch [step/01-simple-llm](https://github.com/rkaramc-learn/learn-llm-rag/tree/step/01-simple-llm).
 
-    ```
-    $ uv add langchain-ollama
-    ```
+## Simple LLM Enhancements
 
-  - Implements a very simple LLM inference flow that sends a question to the LLM
-  - Pros
-    - Easy to understand
-    - Easy to use
-    - Quick to implement
-  - Cons
-    - Not very reliable (responses are inconsistent)
-    - Not very useful (doesn't answer the "what next?" question)
-    - Not very flexible (how do add features to this without making it complex?)
-    - Not very scalable (can't be modifying code every time the question changes)
-    - Not very robust (no error handling)
-    - Not very efficient (spends most of its time waiting for the LLM to respond)
+Track git branch [step/01-simple-llm-with-enhancements](https://github.com/rkaramc-learn/learn-llm-rag/tree/step/01-01-simple-llm-with-enhancements).
 
-  So in effect, this is only a "toy" implementation.
+Track git tag [step_1]
+
+So what enhancements can we add to the simple LLM?
+
+1. Make a reusable LLM wrapper
+1. Implement logging for debugging
+1. Add error handling
+1. Move configuration to a config file
+1. Add a prompt template
+1. Stream responses
+1. Cache responses
+1. Support batches
+1. Limit rate of API calls
+
+In addition to the enhancements, let's also add a UI.
+
+1. Create a web interface to the LLM
+1. Format responses
+1. Add interrupt/abort/retry logic
+1. Support multiple LLMs
+1. Monitor server health
+1. Track usage and metrics
+
+### Make A Reusable LLM Wrapper
+
+Track git tag [step_1.1]
+
+To make a reusable LLM wrapper, we will refactor the code in `__init__.py:callSimpleLLM()`. Extract the configuration code into a reusable function in a new file `simple_llm.py`.
+
+
+# Version 2 -- Simple RAG
+
+# Version 3 -- RAG Pipeline
+
+# Version 4 -- LLM+RAG Pipeline

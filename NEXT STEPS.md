@@ -32,14 +32,11 @@ Track git branch [step/01-simple-llm](https://github.com/rkaramc-learn/learn-llm
 
 ## Simple LLM Enhancements
 
-Track git branch [step/01-simple-llm-with-enhancements](https://github.com/rkaramc-learn/learn-llm-rag/tree/step/01-01-simple-llm-with-enhancements).
-
-Track git tag [step_1]
-
 So what enhancements can we add to the simple LLM?
 
 1. Make a reusable LLM wrapper
 1. Implement logging for debugging
+1. Implement timing of API calls
 1. Add error handling
 1. Move configuration to a config file
 1. Add a prompt template
@@ -70,6 +67,13 @@ Track git tag [step_1.2]
 Add logging to the files `__init__.py` and `simple_llm.py`. We will be using the built-in `logging` module in Python.
 
 Logging will help us debug the code and track usage. However, to be useful, logging will need to be at the appropriate level. For the purposes of this tutorial, we will log at the `INFO` level. Any error messages will be logged at the `ERROR` level. Common logging points are at the start and end of a function, and at the start and end of a loop or an important function call to external modules.
+
+### Implement Timing
+
+Track git tag [step_1.3]
+
+Added a `Timer` class to simplify timing response from LLMs. Logs the time taken by the instrumented code.
+
 
 # Version 2 -- Simple RAG
 

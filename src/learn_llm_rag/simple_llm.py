@@ -1,6 +1,7 @@
 import logging
 
 from langchain_ollama import OllamaLLM
+from .learn_utils import Timer
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,8 @@ def SimpleLLM():
 
     def query(question, *, llm=model):
         logger.info(f"Query to the LLM: {question}")
-        response = llm.invoke(question)
+        with Timer("Invoking LLM with question...", _logger=logger):
+            response = llm.invoke(question)
         logger.info(f"Received response: {response.strip()}")
         return response
 

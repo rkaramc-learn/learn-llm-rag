@@ -90,6 +90,23 @@ Track git tag [step_1.4]
 The simplest way to handle errors is to catch any exceptions raised at the top level, log them and return a default response.
 The try..catch in `__init__.py:callSimpleLLM()` is not the best way to handle errors, but it will do for a first step (see code marked `# [Step 1.4a]`).
 
+The next step is to add a more specific error handler for each type of error.
+
+Configuration errors should occur when configuring the LLM as the configuration values are tested for validity -- in `simple_llm.py:SimpleLLM()`. 
+This is not the case for `langchain` models like `OllamaLLM`, because the model object creation does not validate configuration values. 
+The model object initialization serves only to capture configuration values. 
+Therefore, error handling at this stage becomes a matter of ensuring that the configuration values are valid **prior to** initializing the model object.
+
+- **base_url** is the server URL for the LLM. Validating this is a matter of ensuring that it is a valid URL, and that the LLM is active and responding at this URL.
+- **model_name** is the name of the model to use. To validate this, we need to ensure the model is available at the `base_url`.
+
+See code marked `# [Step 1.4b]`.
+
+Network and Query errors occur when querying the LLM -- in `simple_llm.py:SimpleLLM.query()`.
+
+Response errors occur when reading the response from the LLM -- in `__init__.py:callSimpleLLM()`. This is especially important when using streaming responses.
+
+
 
 
 # Version 2 -- Simple RAG

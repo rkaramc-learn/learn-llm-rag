@@ -106,6 +106,7 @@ Network and Query errors occur when querying the LLM -- in `simple_llm.py:Simple
 
 Response errors occur when reading the response from the LLM -- in `__init__.py:callSimpleLLM()`. This is especially important when using streaming responses.
 
+The existing logging statements take care of network, query and response errors. For a simple one-shot LLM wrapper, all we need to do is log the error and return a default response. More extensive error handling will be required when building a UI for the LLM.
 
 
 

@@ -74,6 +74,23 @@ Track git tag [step_1.3]
 
 Added a `Timer` class to simplify timing response from LLMs. Logs the time taken by the instrumented code.
 
+### Error Handling
+
+Track git tag [step_1.4]
+
+**What are the errors that can be expected?**
+
+- Reviewing the code, we can identify the following categories of errors:
+
+    - Configuration errors
+    - Network errors
+    - Query errors
+    - Response errors
+
+The simplest way to handle errors is to catch any exceptions raised at the top level, log them and return a default response.
+The try..catch in `__init__.py:callSimpleLLM()` is not the best way to handle errors, but it will do for a first step (see code marked `# [Step 1.4a]`).
+
+
 
 # Version 2 -- Simple RAG
 

@@ -1,5 +1,7 @@
 import logging
 
+from dotenv import load_dotenv  # [Step 1.4c]
+
 from learn_llm_rag.simple_llm import SimpleLLM
 
 streamHandler = logging.StreamHandler()
@@ -11,6 +13,9 @@ logging.basicConfig(
     handlers=[logging.FileHandler("learn_llm_rag.log"), streamHandler],
 )
 logger = logging.getLogger(__name__)
+
+
+load_dotenv()  # [Step 1.4c]
 
 
 def callSimpleLLM():

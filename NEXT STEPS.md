@@ -108,7 +108,30 @@ Response errors occur when reading the response from the LLM -- in `__init__.py:
 
 The existing logging statements take care of network, query and response errors. For a simple one-shot LLM wrapper, all we need to do is log the error and return a default response. More extensive error handling will be required when building a UI for the LLM.
 
+### Move Configuration to a Config File
 
+Configuration values should be moved to a separate config file. This will make it easier for us to change the configuration and the code independently. The code also becomes more reusable and testable.
+
+The simplest approach is to hold all the required configuration values in the OS shell environment. To set these environment variables, we can use the python-dotenv package.
+
+- Install the python-dotenv package using `uv add python-dotenv`
+- Create a `.env` file in the project root directory
+- Add the required configuration values to the `.env` file
+- Load the configuration values from the `.env` file using the python-dotenv package
+
+Since the `.env` file may contain sensitive information, do not commit this to the repository. To assure this, remember to add the `.env` file to the `.gitignore` file if it is not already there.
+
+See code marked `# [Step 1.4c]`.
+
+There are alternatives to environment variables and the python-dotenv package. These include:
+
+- Command line arguments
+
+    We can use command line arguments to pass configuration values to the program, but this method is used most often to supplement and/or override the configuration values in the `.env` file. We will eventually build a command line interface in the tutorial.
+
+- INI/YAML/JSON/TOML files
+
+    The configuration file options are in many cases more flexible and powerful, but they are also more complex to configure and use. The environment variables approach is the most common and most simple to use. We will move to other alternatives only if we need their flexibility and expressive power.
 
 # Version 2 -- Simple RAG
 

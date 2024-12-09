@@ -1,7 +1,9 @@
 import logging
-import httpx
+import os
 
+import httpx
 from langchain_ollama import OllamaLLM
+
 from learn_llm_rag.learn_utils import Timer
 
 logger = logging.getLogger(__name__)
@@ -35,8 +37,10 @@ def SimpleLLM():
             raise e from None
 
     (_base_url, _model) = _validate_ollama_url_and_model(
-        base_url="http://quark02.saury-gar.ts.net:11434",
-        model="llama3.2:latest",
+        # [Step 1.4c] begins
+        base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+        model=os.getenv("OLLAMA_MODEL", "llama3.2:latest"),
+        # [Step 1.4c] ends
     )
     # [Step 1.4b] ends
 

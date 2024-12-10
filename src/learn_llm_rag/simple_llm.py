@@ -50,10 +50,13 @@ def SimpleLLM():
         format="json",
     )
 
-    def query(question, *, llm=model):
+    def query(question, *, llm=model, prompt_template="{question}"):
         logger.info(f"Query to the LLM: {question}")
         with Timer("Invoking LLM with question...", _logger=logger):
-            response = llm.invoke(question)
+            # [Step 1.4d] begins
+            prompt = prompt_template.format(question=question)
+            # [Step 1.4d] ends
+            response = llm.invoke(prompt)
         logger.info(f"Received response: {response.strip()}")
         return response
 

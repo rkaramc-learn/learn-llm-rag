@@ -133,6 +133,26 @@ There are alternatives to environment variables and the python-dotenv package. T
 
     The configuration file options are in many cases more flexible and powerful, but they are also more complex to configure and use. The environment variables approach is the most common and most simple to use. We will move to other alternatives only if we need their flexibility and expressive power.
 
+### Add a Prompt Template
+
+A `Prompt` is the input to the LLM. In the simplest case, the prompt is the same as the user's query. The LLM's response is generated based on the prompt provided, so if the query is worded correctly, the response will also be reasonably accurate. Depending on the user's intent, a more detailed query will result in a better response. Since the LLM is a probabilistic model, certain types of prompts tend to generate better responses. These include specific instructions and guidelines for the LLM that channel the model's natural language processing capabilities to function better.
+
+The `Prompt Template` includes these guidelines and instructions, in addition to the user's query, without requiring the user to provide this on every interaction. The template is an aid for the user to make the query more specific, and thereby improving the quality of the response.
+
+    - Example of a Prompt Template:
+        ```
+        You are a helpful, respectful, and honest assistant.
+        Follow a chain-of-thoughts format when generating the response.
+
+        Question: {question}
+
+        Answer: Let's think step by step.
+        ```
+
+See the [Prompt Engineering Guide](https://www.promptingguide.ai/) for more information on this topic.
+
+We will implement a prompt template as an input to the LLM wrapper. See code marked `# [Step 1.4d]`.
+
 # Version 2 -- Simple RAG
 
 # Version 3 -- RAG Pipeline

@@ -32,7 +32,19 @@ def callSimpleLLM():
 
         # Query LLM
         logger.info("Querying the LLM...")
-        llm_response = llm_query(question)
+
+        # [Step 1.4d] changes begin
+        template = """
+        You are a helpful, respectful, and honest assistant.
+        Follow a chain-of-thoughts format when generating the response.
+        Based on the chain of thoughts, the final answer should be listed at the end of the response.
+
+        Question: {question}
+
+        Response: Let's think step by step.
+        """
+        llm_response = llm_query(question, prompt_template=template)
+        # [Step 1.4d] changes end
 
         # Print response
         logger.info("Printing the response...")

@@ -1,6 +1,7 @@
 import logging
+import os
 
-from dotenv import load_dotenv  # [Step 1.4c]
+from dotenv import load_dotenv
 
 from learn_llm_rag.simple_llm import SimpleLLM
 
@@ -15,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-load_dotenv()  # [Step 1.4c]
+load_dotenv()
 
 
 def callSimpleLLM():
@@ -33,7 +34,6 @@ def callSimpleLLM():
         # Query LLM
         logger.info("Querying the LLM...")
 
-        # [Step 1.4d] changes begin
         template = """
         You are a helpful, respectful, and honest assistant.
         Follow a chain-of-thoughts format when generating the response.
@@ -43,18 +43,25 @@ def callSimpleLLM():
 
         Response: Let's think step by step.
         """
-        llm_response = llm.query(question, prompt_template=template)
-        # [Step 1.4d] changes end
+        stream_mode_flag = os.getenv("LLM_STREAM_MODE", False)
 
         # Print response
         logger.info("Printing the response...")
-        print(f"A: {llm_response.strip()}")
+        if stream_mode_flag:
+            llm_response = llm.query_with_stream(question, prompt_template=template)
+            print("A: ", end="", flush=True)
+            for chunk in llm_response:
+                if stream_mode_flag and chunk.strip() == "":
+                    continue
+                print(chunk, end="", flush=True)
+            print()
+        else:
+            llm_response = llm.query(question, prompt_template=template)
+            print(f"A: {llm_response.strip()}")
 
     except Exception as e:
-        # [Step 1.4a] begins
         logger.error(f"{type(e).__name__}: {e.__notes__}{e}")
         return
-        # [Step 1.4a] ends
 
 
 def main():

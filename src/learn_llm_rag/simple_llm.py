@@ -29,6 +29,14 @@ class OllamaLLMServer:
         logger.info(f"Received response: {response}")
         return response
 
+    def query_with_stream(self, question, *, prompt_template="{question}"):
+        logger.info(f"Query to the LLM: {question}")
+        with Timer("Invoking LLM with question...", _logger=logger):
+            prompt = prompt_template.format(question=question)
+            response = self.llm.stream(prompt, stream=True)
+        logger.info(f"Received response: {response}")
+        return response
+
     def _validate_ollama_url_and_model(self, base_url, model):
         try:
             response = httpx.get(

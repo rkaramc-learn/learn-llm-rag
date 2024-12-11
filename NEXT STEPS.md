@@ -153,6 +153,10 @@ See the [Prompt Engineering Guide](https://www.promptingguide.ai/) for more info
 
 We will implement a prompt template as an input to the LLM wrapper. See code marked `# [Step 1.4d]`.
 
+### Make a Reusable LLM Wrapper Class
+
+We will refactor the `SimpleLLM` function to return an instance of new class called `OllamaLLMServer`. Currently, `SimpleLLM` returns a query function, but by changing it to return a class instance, we can more easily add functionality in the future. The `OllamaLLMServer` class will serve as a reusable wrapper for interacting with the Ollama LLM server, encapsulating the query functionality and allowing for easier expansion of features.
+
 # Version 2 -- Simple RAG
 
 # Version 3 -- RAG Pipeline

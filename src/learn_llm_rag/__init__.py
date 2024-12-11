@@ -63,7 +63,7 @@ def callSimpleLLM():
 
         Response: Let's think step by step.
         """
-        stream_mode_flag = os.getenv("LLM_STREAM_MODE", False)
+        stream_mode_flag = os.getenv("LLM_STREAM_MODE") == "true"
 
         # Print response
         for i in range(3):

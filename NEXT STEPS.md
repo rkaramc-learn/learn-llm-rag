@@ -175,6 +175,18 @@ Adding streaming capability to LLM responses is therefore an important feature. 
 
 For this tutorial, we will implement streaming capabilities in the `OllamaLLMServer` class by adding a method `query_with_stream()`.
 
+### Cache the Response
+
+Caching responses from the LLM can speed up the application for users, while reducing the number of calls made to the LLM server. To make the best use of caching, first review the queries being sent to the LLM, and the responses being returned. Where the queries are worded the same, and if the responses expected from the LLM are the same, then caching makes sense. If any of these conditions are not met, then caching should not be used.
+
+In this tutorial, we will implement caching in the `OllamaLLMServer` class by adding an argument `cache=True` to `OllamaLLMServer()` in `SimpleLLM()`. To trigger this, set an environment variable `LLM_CACHE_MODE` to `true` in the `.env` file.
+
+To demonstrate caching, we will run the prompt three times in `callSimpleLLM()`.
+
+NOTE: Caching is currently not supported for the `OllamaLLM` class in `langchain-ollama` package. See the [langchain issue](https://github.com/langchain-ai/langchain/issues/25712) for more information.
+
+We will retry this in subsequent tutorial steps.
+
 # Version 2 -- Simple RAG
 
 # Version 3 -- RAG Pipeline

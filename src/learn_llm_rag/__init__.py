@@ -43,21 +43,22 @@ def callSimpleLLM():
 
         Response: Let's think step by step.
         """
-        stream_mode_flag = os.getenv("LLM_STREAM_MODE", False)
+        stream_mode_flag = os.getenv("LLM_STREAM_MODE") == "true"
 
         # Print response
-        logger.info("Printing the response...")
-        if stream_mode_flag:
-            llm_response = llm.query_with_stream(question, prompt_template=template)
-            print("A: ", end="", flush=True)
-            for chunk in llm_response:
-                if stream_mode_flag and chunk.strip() == "":
-                    continue
-                print(chunk, end="", flush=True)
-            print()
-        else:
-            llm_response = llm.query(question, prompt_template=template)
-            print(f"A: {llm_response.strip()}")
+        for i in range(3):
+            logger.info(f"Printing the response... (Iteration {i+1})")
+            if stream_mode_flag:
+                llm_response = llm.query_with_stream(question, prompt_template=template)
+                print("A: ", end="", flush=True)
+                for chunk in llm_response:
+                    if chunk.strip() == "":
+                        continue
+                    print(chunk, end="", flush=True)
+                print()
+            else:
+                llm_response = llm.query(question, prompt_template=template)
+                print(f"A: {llm_response.strip()}")
 
     except Exception as e:
         logger.error(f"{type(e).__name__}: {e.__notes__}{e}")

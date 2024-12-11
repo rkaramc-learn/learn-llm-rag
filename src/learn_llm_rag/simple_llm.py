@@ -2,6 +2,8 @@ import logging
 import os
 
 import httpx
+from langchain_core.caches import InMemoryCache
+from langchain_core.globals import set_llm_cache
 from langchain_ollama import OllamaLLM
 
 from learn_llm_rag.learn_utils import Timer
@@ -10,15 +12,21 @@ logger = logging.getLogger(__name__)
 
 
 class OllamaLLMServer:
-    def __init__(self, *, base_url: str, model: str) -> None:
+    def __init__(self, *, base_url: str, model: str, cache: bool = False) -> None:
         """
         Initialize Ollama LLM wrapper with remote URL and model name.
         """
         (self._base_url, self._model) = self._validate_ollama_url_and_model(
             base_url, model
         )
+        self.cache = cache
 
-        self.llm = OllamaLLM(base_url=self._base_url, model=self._model, format="json")
+        if self.cache:
+            set_llm_cache(InMemoryCache())
+
+        self.llm = OllamaLLM(
+            base_url=self._base_url, model=self._model, format="json", cache=self.cache
+        )
 
     def query(self, question, *, prompt_template="{question}"):
         logger.info(f"Query to the LLM: {question}")
@@ -67,5 +75,6 @@ def SimpleLLM():
     """
     base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     model = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
+    cache = os.getenv("OLLAMA_CACHE") == "true"
 
-    return OllamaLLMServer(base_url=base_url, model=model)
+    return OllamaLLMServer(base_url=base_url, model=model, cache=cache)

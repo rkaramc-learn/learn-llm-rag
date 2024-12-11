@@ -28,7 +28,7 @@ def callSimpleLLM():
 
         # Initialize LLM with remote URL and available model
         logger.info("Initializing the LLM wrapper...")
-        llm_query = SimpleLLM()
+        llm = SimpleLLM()
 
         # Query LLM
         logger.info("Querying the LLM...")
@@ -43,7 +43,7 @@ def callSimpleLLM():
 
         Response: Let's think step by step.
         """
-        llm_response = llm_query(question, prompt_template=template)
+        llm_response = llm.query(question, prompt_template=template)
         # [Step 1.4d] changes end
 
         # Print response

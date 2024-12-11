@@ -157,6 +157,24 @@ We will implement a prompt template as an input to the LLM wrapper. See code mar
 
 We will refactor the `SimpleLLM` function to return an instance of new class called `OllamaLLMServer`. Currently, `SimpleLLM` returns a query function, but by changing it to return a class instance, we can more easily add functionality in the future. The `OllamaLLMServer` class will serve as a reusable wrapper for interacting with the Ollama LLM server, encapsulating the query functionality and allowing for easier expansion of features.
 
+### Stream the Response
+
+Till now, we have been displaying the response from the LLM server once the full response has been received. This approach is simple, but is not ideal for the user experience.
+
+Users perceive the below issues when they are waiting for a response from the LLM server:
+
+- **Lack of interactivity** causes users problems when trying to interrupt or cancel the query. In addition, users may be unable to react to the content till it is completely downloaded and/or displayed.
+
+- **Limited context switching**, that is continuing with other tasks while waiting for the response, is not possible for the user as they wait for the full response to be downloaded.
+
+- **Frustration with errors** arises when the LLM server is unable to generate a correct response after having waited for a long time.
+
+- **Long wait times** cause users to experience significant delays before seeing the output, especially for long responses. **Timeout issues** due to network delays or errors makes this worse as the full response is lost due to these errors. The **perceived slowness** of the application frustrates users and reduces their engagement with the application.
+
+Adding streaming capability to LLM responses is therefore an important feature. Streaming allows the user to see the response as it is generated, thus providing a more responsive and engaging experience. The above issues are mitigated to an extent with streaming, provided it is implemented correctly.
+
+For this tutorial, we will implement streaming capabilities in the `OllamaLLMServer` class by adding a method `query_with_stream()`.
+
 # Version 2 -- Simple RAG
 
 # Version 3 -- RAG Pipeline

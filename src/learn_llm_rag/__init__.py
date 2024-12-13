@@ -57,11 +57,8 @@ def callSimpleLLM():
         logger.info("Querying the LLM...")
 
         template = """
-        You are a helpful, respectful, and honest assistant.
-
         Question: {question}
-
-        Response: Let's think step by step.
+        Response: Be concise.
         """
         stream_mode_flag = os.getenv("LLM_STREAM_MODE") == "true"
 

@@ -3,19 +3,24 @@ import os
 
 from dotenv import load_dotenv
 
-from learn_llm_rag.learn_utils import Timer
+from learn_llm_rag.learn_utils import ConsoleFormatter, Timer
 from learn_llm_rag.simple_llm import SimpleLLM
 
 streamHandler = logging.StreamHandler()
-streamHandler.setLevel(logging.WARNING)
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
     handlers=[logging.FileHandler("learn_llm_rag.log"), streamHandler],
 )
-logger = logging.getLogger(__name__)
 
+streamFormatter = ConsoleFormatter(
+    "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+)
+streamHandler.setFormatter(streamFormatter)
+streamHandler.setLevel(logging.WARNING)
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -80,6 +85,7 @@ def callSimpleLLM():
                     #     print(chunk, end="", flush=True)
                     # print()
             else:
+                logger.info(f"Printing the response... (Iteration {i+1})")
                 llm_response = llm.query(question, prompt_template=template)
                 print_response(llm_response)
                 # print(f"A: {llm_response.strip()}")
